@@ -1,91 +1,30 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import axios from 'axios';
-Vue.prototype.$http=axios
-
-const store = new Vuex.Store({
-  state: {
-    status: '',
-    token: localStorage.getItem('token') || '',
-    user: {}
-  },
-  mutations: {
-    auth_request(state) {
-      state.status = 'loading';
-    },
-    auth_success(state, token, user) {
-      state.status = 'success';
-      state.token = token;
-      state.user = user;
-    },
-    auth_error(state) {
-      state.status = 'error';
-    },
-    logout(state) {
-      state.status = '';
-      state.token = '';
-    },
-  },
-  actions: {
-    Login({commit}, user) {
-      return new Promise((resolve, reject) => {
-        commit('auth_request')
-        // 向后端发送请求，验证用户名密码是否正确，请求成功接收后端返回的token值，利用commit修改store的state属性，并将token存放在localStorage中
-        axios.post('login', user)
-          .then(resp => {
-            const token = resp.data.token
-            const user = resp.data.user
-            localStorage.setItem('token', token)
-            // 每次请求接口时，需要在headers添加对应的Token验证
-            axios.defaults.headers.common['Authorization'] = token
-            // 更新token
-            commit('auth_success', token, user)
-            resolve(resp)
-          })
-          .catch(err => {
-            commit('auth_error')
-            localStorage.removeItem('token')
-            reject(err)
-          })
-      })
-    },
-    LogOut({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        axios.get('Logout')
-          .then(response => {
-            removeIsLogin()
-            localStorage.removeItem('loginUsername');
-            // 移除之前在axios头部设置的token,现在将无法执行需要token的事务
-
-            delete axios.defaults.headers.common['Authorization'];
-            resolve(response)
-          })
-          .catch(error => {
-            reject(error)
-          })
-      })
+let pending = []; //声明一个数组用于存储每个ajax请求的取消函数和ajax标识
+let cancelToken = axios.CancelToken;
+let removePending = (config) => {
+  for(let p in pending){
+    if(pending[p].u === config.url + '&' + config.method) { //当当前请求在数组中存在时执行函数体
+      pending[p].f(); //执行取消操作
+      pending.splice(p, 1); //把这条记录从数组中移除
     }
-  },
-  getters: {
-    // !!将state.token强制转换为布尔值，若state.token存在且不为空(已登录)则返回true，反之返回false
-    isLoggedIn: state => !!state.token,
-    authStatus: state => state.status
   }
+}
+
+//添加请求拦截器
+axios.interceptors.request.use(config=>{
+  removePending(config); //在一个ajax发送前执行一下取消操作
+  config.cancelToken = new cancelToken((c)=>{
+    // 这里的ajax标识我是用请求地址&请求方式拼接的字符串，当然你可以选择其他的一些方式
+    pending.push({ u: config.url + '&' + config.method, f: c });
+  });
+  return config;
+},error => {
+  return Promise.reject(error);
 });
 
-export default store;
-
-router.beforeEach((to, from, next) => {
-  // 检测路由配置中是否有requiresAuth这个meta属性
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // 判断是否已登录
-    if (store.getters.isLoggedIn) {
-      next();
-      return;
-    }
-    // 未登录则跳转到登录界面
-    next('/login');
-  } else {
-    next()
-  }
-})
+//添加响应拦截器
+axios.interceptors.response.use(response=>{
+  removePending(res.config);  //在一个ajax响应后再执行一下取消操作，把已经完成的请求从pending中移除
+  return response;
+},error =>{
+  return { data: { } }; //返回一个空对象，主要是防止控制台报错
+});

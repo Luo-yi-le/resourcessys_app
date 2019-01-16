@@ -1,5 +1,6 @@
 <template>
   <div>
+    <view-box>
     <x-header :title="tit" :style="backColor">
       <div slot="overwrite-left" class="left-arrow">
         <router-link :to="{path:'/index'}" class="left-arrow-a">返回</router-link>
@@ -14,13 +15,13 @@
 
     </x-header>
     <!--图片-->
-    <img src="../../../static/img/ban.jpg" title="图片"style="width: 100%;height:220px">
+    <img src="../../../static/img/ban.jpg" title="图片" style="width: 100%;height:220px">
     <!--图标-->
     <div>
       <view-box>
-        <tabbar >
+        <tabbar>
           <tabbar-item v-for="item in tools" :link="item.link">
-            <i slot="icon"  :class="item.iconCls" aria-hidden="true" style="font-size: 30px"></i>
+            <i slot="icon" :class="item.iconCls" aria-hidden="true" style="font-size: 30px"></i>
             <span slot="label"> {{item.name}}</span>
           </tabbar-item>
 
@@ -36,23 +37,28 @@
               <li v-for="res of res_quaShow">
                 <div class="item">
                   <router-link :to="{path:'',query:{name:res.name}}">
-                  <div class="image">
-                    <div class="LazyImage" style="width:100%;height:initial;">
-                      <img :src="'../../../static/img/res_qua/'+(res.pic)":title="res.name" alt="" class="active animate" style="height: initial">
+                    <div class="image">
+                      <router-link to="/house">
+                        <div class="LazyImage" style="width:100%;height:initial;">
+                          <img :src="'../../../static/img/res_qua/'+(res.pic)" :title="res.name" alt=""
+                               class="active animate" style="height: initial">
+                        </div>
+                      </router-link>
                     </div>
-                  </div>
-                  <div class="title">
-                    小区: {{res.name}}
-                  </div>
-                  <div class="title">
-                    竣工日期: {{res.completedate}}
-                  </div>
-                  <div class="title">
-                    <router-link :to="{path:'',query:{name:res.detailed}}">
-                    <i class="fa fa-map-marker" aria-hidden="true"></i>地址: {{res.detailed}}
+                    <router-link to="/house">
+                      <div class="title">
+                        小区: {{res.name}}
+                      </div>
+                      <div class="title">
+                        竣工日期: {{res.completedate}}
+                      </div>
                     </router-link>
-                  </div>
-                  <div class="price"><span class="MuPriceTag">是否出售：{{res.sell}}</span></div>
+                    <div class="title">
+                      <router-link :to="{path:'',query:{name:res.detailed}}">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>地址: {{res.detailed}}
+                      </router-link>
+                    </div>
+                    <div class="price"><span class="MuPriceTag">是否出售：{{res.sell}}</span></div>
                   </router-link>
                 </div>
               </li>
@@ -61,7 +67,7 @@
         </div>
       </div>
     </div>
-
+    </view-box>
     <footer class="footer">
       <view-box style="height:100%;">
         <router-view></router-view>
@@ -76,61 +82,61 @@
   import * as api from '../../control/axios/api.js'
   import axios from 'axios'
   //注册
- import BottomNav from "./../footer/BottomNav.vue";
+  import BottomNav from "./../footer/BottomNav.vue";
 
-import {XHeader,Icon,ViewBox,TabbarItem,Tabbar,XHr,Divider}from 'vux'
+  import {XHeader, Icon, ViewBox, TabbarItem, Tabbar, XHr, Divider} from 'vux'
   //获取localStorage
-var loginid=sessionStorage.getItem('loginid');
-console.log('用户'+loginid);
+  var loginid = sessionStorage.getItem('loginid');
+  console.log('用户' + loginid);
   export default {
     name: "Index",
-    components: {Divider, XHr, TabbarItem,Tabbar,ViewBox, Icon, XHeader, 'buttom-nav':BottomNav},
+    components: {Divider, XHr, TabbarItem, Tabbar, ViewBox, Icon, XHeader, 'buttom-nav': BottomNav},
     data() {
-      return{
+      return {
         backColor: {
-          backgroundColor: '#412A2E'
+          backgroundColor: '#412A2E',
         },
-        loginid:loginid,
-        tit:'首页',
-        tools:[
+        loginid: loginid,
+        tit: '首页',
+        tools: [
           {
-            name:'小区',
+            name: '小区',
             iconCls: 'fa fa-home fa-fw fa-2x',
             link: '/req_res'
           },
           {
-            name:'预定',
+            name: '预定',
             iconCls: 'fa fa-home fa-2x',
             link: 'index'
           },
           {
-            name:'房子',
+            name: '房子',
             iconCls: 'fa fa-home fa-2x',
             link: '/house'
           }
         ],
-        res_quaShow:[],
-        res_quaMsg:'推荐小区',
-        houseShow:[],
-        houseMsg:'推荐房间'
+        res_quaShow: [],
+        res_quaMsg: '推荐小区',
+        houseShow: [],
+        houseMsg: '推荐房间'
       };
     },
     created() {
       this.res_qua()
       //this.house()
     },
-    methods:{
+    methods: {
       res_qua() {
-        var that=this;
+        var that = this;
         axios.post(api.req_resLimit)
           .then(function (res) {
-            that.res_quaShow=res.data;
-            console.log(that.res_quaShow=res.data);
+            that.res_quaShow = res.data;
+            console.log(that.res_quaShow = res.data);
 
           });
       }
-      ,Ulogin(){
-        if (confirm("是否登陆？")){
+      , Ulogin() {
+        if (confirm("是否登陆？")) {
           this.$router.push("/login");
         }
       }
@@ -156,31 +162,35 @@ console.log('用户'+loginid);
   .footer {
     .footer {
       width: 100%;
-      height:50px;   /* footer的高度一定要是固定值*/
-      position:absolute;
+      height: 50px; /* footer的高度一定要是固定值*/
+      position: absolute;
       bottom: auto;
-      left:0px;
+      left: 0px;
       background: #dddddd;
     }
   }
-  .left-arrow{
+
+  .left-arrow {
     width: 100px;
   }
-  .left-arrow-a{
+
+  .left-arrow-a {
     margin-left: 20px;
     position: absolute;
     width: 50px;
     margin-top: 5px;
   }
-  .img_big{
+
+  .img_big {
     width: 100%;
     height: 22%;
   }
 
-  .icon-tool{
+  .icon-tool {
     float: right;
   }
- .icon-tool .zui-icon{
+
+  .icon-tool .zui-icon {
     display: inline-block;
     text-align: center;
     width: 30px;
@@ -188,7 +198,7 @@ console.log('用户'+loginid);
     color: #ffffff;
     line-height: 1.6;
     font-size: 24px;
-   margin-top: -10px;
+    margin-top: -10px;
   }
 
 </style>

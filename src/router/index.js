@@ -94,5 +94,14 @@ export default new Router({
         requiresAuth:true
       }
     }
+    ,{
+      path: '/house/reserve',//房子的详细信息
+      name: 'Reserve',
+      component: resolve => require(['@/components/reserve/Reserve.vue'], resolve),
+      meta:{
+        KeepAlive: true,
+        requiresAuth:true
+      }
+    }
   ]
 })

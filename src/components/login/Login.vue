@@ -54,7 +54,7 @@
     data() {
       return {
         msg: '登陆',
-        tit: '个人中心',
+        tit: '个人登陆中心',
         loginId: '',
         loginPwd: '',
       }
@@ -67,7 +67,7 @@
     , methods: {
       loginU: function () {
         var that = this;
-        var user = new FormData();
+        var user = new URLSearchParams();
         user.append('loginid', that.loginId);
         user.append('loginpwd', that.loginPwd);
         if (this.loginId !== "" && this.loginPwd !== "") {

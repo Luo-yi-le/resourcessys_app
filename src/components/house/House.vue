@@ -12,7 +12,7 @@
             <ul>
               <li v-for="h of house">
                 <div class="item">
-                  <router-link :to="{path:'',query:{name:h.position}}">
+                  <router-link :to="{path:'/house/reserve',query:{name:h.position}}">
                     <div class="image">
                       <div class="LazyImage" style="width:100%;height:initial;">
                         <img :src="'../../../static/img/house/'+(h.photo)":title="h.position" alt="" class="active animate" style="height: initial">

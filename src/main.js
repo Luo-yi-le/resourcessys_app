@@ -12,9 +12,10 @@ import iView from 'iview' // 导入组件库
 import 'iview/dist/styles/iview.css'// 导入样式
 import '../static/font/font-awesome-4.7.0/css/font-awesome.css'
 import '../static/css/less/common.less'
-
-import 'jquery/dist/jquery.js'
-
+import storeJs from './control/axios/store.js'
+import $ from 'jquery';
+window.jQuery = $;
+window.$ = $;
 /***
  * 粒子特效 效果不佳
  * */
@@ -25,11 +26,12 @@ Vue.config.productionTip = false
 /***
  * 应用库
  * **/
+
 Vue.use(VueParticles)
 Vue.use(iView)
 Vue.use(Vuex)
 Vue.use(metaInfo)
-
+Vue.use(storeJs)
 /***
  *  vuex状态管理
  */

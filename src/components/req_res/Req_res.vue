@@ -15,17 +15,21 @@
                 <div class="item">
                   <router-link :to="{path:'',query:{name:res.name}}">
                     <div class="image">
+                      <router-link to="/house">
                       <div class="LazyImage" style="width:100%;height:initial;">
                         <img :src="'../../../static/img/res_qua/'+(res.pic)" :title="res.name" alt=""
                              class="active animate" style="height: initial">
                       </div>
+                      </router-link>
                     </div>
+                    <router-link to="/house">
                     <div class="title">
                       小区: {{res.name}}
                     </div>
                     <div class="title">
                       竣工日期: {{res.completedate}}
                     </div>
+                    </router-link>
                     <div class="title">
                       <router-link :to="{path:'',query:{name:res.detailed}}">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>地址: {{res.detailed}}
@@ -67,7 +71,6 @@
         .then(function (res) {
           that.res_qua = res.data;
           console.log(that.res_qua = res.data);
-
         })
     }
   }

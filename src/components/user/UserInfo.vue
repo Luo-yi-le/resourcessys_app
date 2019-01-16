@@ -92,7 +92,7 @@
     , methods: {
       showUser: function () {
         var loginid = sessionStorage.getItem('loginid');
-        var info = new FormData();
+        var info = new URLSearchParams();
         info.append('loginid', loginid);
         var that = this;
         axios.post(api.selectloginId, info)
