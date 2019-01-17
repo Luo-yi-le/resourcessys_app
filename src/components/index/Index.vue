@@ -118,12 +118,14 @@
         res_quaShow: [],
         res_quaMsg: '推荐小区',
         houseShow: [],
-        houseMsg: '推荐房间'
+        houseMsg: '推荐房间',
+        user:[],
+        id:''
       };
     },
     created() {
       this.res_qua()
-      //this.house()
+      this.selectUserUid()
     },
     methods: {
       res_qua() {
@@ -137,8 +139,24 @@
       }
       , Ulogin() {
         if (confirm("是否登陆？")) {
+          sessionStorage.removeItem('uid');
           this.$router.push("/login");
         }
+      }
+      ,selectUserUid() {
+        const that = this;
+        const loginId = sessionStorage.getItem("loginid");
+        var info = new URLSearchParams();
+        info.append('loginid', loginId);
+        axios.post(api.selectloginId, info)
+          .then(res => {
+            this.user = res.data;
+            this.id = this.user.uid;
+            sessionStorage.setItem('uid',this.user.uid)
+            console.log("用户编号："+this.id)
+          }).catch(err => {
+          console.log(err)
+        })
       }
       // house:function(){
       //   var that=this;

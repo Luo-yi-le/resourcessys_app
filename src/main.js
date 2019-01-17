@@ -12,7 +12,7 @@ import iView from 'iview' // 导入组件库
 import 'iview/dist/styles/iview.css'// 导入样式
 import '../static/font/font-awesome-4.7.0/css/font-awesome.css'
 import '../static/css/less/common.less'
-import storeJs from './control/axios/store.js'
+
 import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;
@@ -31,7 +31,6 @@ Vue.use(VueParticles)
 Vue.use(iView)
 Vue.use(Vuex)
 Vue.use(metaInfo)
-Vue.use(storeJs)
 /***
  *  vuex状态管理
  */

@@ -2,33 +2,17 @@
   <div id="self">
     <x-header :title="tit" style="height: 70px;" >
       <div slot="overwrite-left" class="left-arrow">
-        <router-link :to="{path:'/index'}" class="left-arrow-a">返回</router-link>
+        <router-link to="" class="left-arrow-a">返回</router-link>
       </div>
     </x-header>
     <div class="weui-tab__content" style="display: block;">
       <div class="weui-cells">
-        <router-link to="/setting/userinfo" class="weui-cell weui-cell_access">
-          <div class="weui-cell__hd">
-            <!--<img src="https://sinacloud.net/vue-wechat/images/headers/header01.png" alt="" class="self-header">-->
-            <img :src="'../../../static/img/user/'+(loginid)+'.jpg'" alt="" class="self-header">
-          </div>
-          <div class="weui-cell__bd">
-            <h4 class="self-nickname">{{loginid}}</h4>
-
-            <p class="self-wxid">账号: {{loginid}}</p>
-          </div>
-          <div class="weui-cell__ft">
-            <!--<img src="../../assets/images/chat-info-qr.png">-->
-          </div>
-        </router-link>
-      </div>
-      <div class="weui-cells">
-        <router-link to="" class="weui-cell weui-cell_access">
+        <router-link to="/h   ouse/reserve" class="weui-cell weui-cell_access">
           <div class="weui-cell__hd">
             <!--<img src="../../assets/images/me_more-my-album.png">-->
           </div>
           <div class="weui-cell__bd">
-            <p>相册</p>
+            <p>预定</p>
           </div>
         </router-link>
       </div>
@@ -39,16 +23,6 @@
           </div>
           <div class="weui-cell__bd">
             <p>订单</p>
-          </div>
-        </router-link>
-      </div>
-      <div class="weui-cells">
-        <router-link to="/setting/userinfo" class="weui-cell weui-cell_access">
-          <div class="weui-cell__hd">
-            <!--<img src="../../assets/images/me_more-expression.png">-->
-          </div>
-          <div class="weui-cell__bd">
-            <p>个人信息</p>
           </div>
         </router-link>
       </div>
@@ -80,7 +54,7 @@
   var loginid = sessionStorage.getItem('loginid');
 
   export default {
-    name: "UserInfo",
+    name: "My",
     components: {XHeader, ViewBox, 'buttom-nav': BottomNav},
     data() {
       return {

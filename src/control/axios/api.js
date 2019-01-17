@@ -33,6 +33,7 @@ export const selectloginId=baseUrl+'/user/selectloginid';
 export const getAllNotice=baseUrl+'/noticer/getAllNotice';
 export const selectAllNoticeOrderBy=baseUrl+'/noticer/selectAllNoticeOrderBy';
 
-/**预定房子*/
+/**预定表（房子）*/
 export  const insertBespeak=baseUrl+'/bespeak/insertBespeak'
-
+export  const selectAllBespeak=baseUrl+'/bespeak/selectAllBespeak'
+export  const selectAllBespeakByUid=baseUrl+'/bespeak/selectAllBespeakByUid'

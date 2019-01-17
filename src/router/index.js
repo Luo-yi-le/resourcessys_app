@@ -95,9 +95,27 @@ export default new Router({
       }
     }
     ,{
-      path: '/house/reserve',//房子的详细信息
+      path: '/house/bespeak',//房子的详细信息
+      name: 'Bespeak',
+      component: resolve => require(['@/components/reserve/Bespeak.vue'], resolve),
+      meta:{
+        KeepAlive: true,
+        requiresAuth:true
+      }
+    }
+    ,{
+      path: '/house/reserve',//订单详细信息
       name: 'Reserve',
       component: resolve => require(['@/components/reserve/Reserve.vue'], resolve),
+      meta:{
+        KeepAlive: true,
+        requiresAuth:true
+      }
+    }
+    ,{
+      path: '/my',//订单详细信息
+      name: 'My',
+      component: resolve => require(['@/components/reserve/My.vue'], resolve),
       meta:{
         KeepAlive: true,
         requiresAuth:true

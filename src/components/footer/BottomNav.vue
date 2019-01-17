@@ -25,12 +25,12 @@ import '../../assets/font-awesome-4.7.0/css/font-awesome.css'
           {
             name: '首页',
             iconCls: 'fa fa fa-podcast fa-fw',
-            link: 'index'
+            link: '/index'
           },
           {
             name: '我的',
             iconCls: 'fa fa-info-circle fa-fw',
-            link: '/u'
+            link: '/my'
           },
           {
             name: '设置',

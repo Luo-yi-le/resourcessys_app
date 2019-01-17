@@ -73,11 +73,10 @@
         if (this.loginId !== "" && this.loginPwd !== "") {
           axios.post(api.login, user)
             .then(res => {
+              sessionStorage.setItem("loginid", that.loginId);
               alert(that.loginId + '登陆成功');
              // this.$Message.success('登陆成功')
               //this.$store.commit('ADD_COUNT',res.data.token)
-              sessionStorage.setItem("loginid", that.loginId);
-              sessionStorage.removeItem("uid");
               this.$router.push("/index");
 
               //alert(that.loginId + '登陆成功');
