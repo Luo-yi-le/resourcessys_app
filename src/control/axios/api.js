@@ -3,7 +3,7 @@
  */
 
 /***********************服务器地址********************************/
-export const baseUrl = 'http://localhost:8080';
+export const baseUrl = 'http://192.168.8.178:8080';
 
 /***********************登录相关********************************/
 export const login=baseUrl+'/user/login';

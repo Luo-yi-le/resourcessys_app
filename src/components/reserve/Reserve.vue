@@ -29,7 +29,7 @@
                     房子: {{res.position}}
                   </div>
                   <div class="title">
-                    预定日期: {{res.bdata}}
+                    预定日期: {{res.bdate}}
                   </div>
                 </router-link>
               </div>

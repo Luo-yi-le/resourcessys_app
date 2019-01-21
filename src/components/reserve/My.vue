@@ -7,7 +7,7 @@
     </x-header>
     <div class="weui-tab__content" style="display: block;">
       <div class="weui-cells">
-        <router-link to="/h   ouse/reserve" class="weui-cell weui-cell_access">
+        <router-link to="/house/reserve" class="weui-cell weui-cell_access">
           <div class="weui-cell__hd">
             <!--<img src="../../assets/images/me_more-my-album.png">-->
           </div>
